@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>反弹动画</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            left: 500px;
+            top: 100px;
+        }
+
+        .btn {
+            /*width: 200px;*/
+            height: 200px;
+            position: absolute;
+            top: 200px;
+            left: 50px;
+        }
+
+        .btn input {
+            border: 0;
+            width: 100px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<div class="btn">
+    <input type="button" value="左"/>
+    <input type="button" value="右"/>
+</div>
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript">
+    var box = document.getElementById('box');
+    var btns = document.getElementsByTagName('input');
+    var tarLeft = 0, tarRight = utils.win("clientWidth") - box.offsetWidth;
+    var curLeft = utils.getCss(box,'left');
+    var timer = null;
+    function move(tar){
+        if(tar>curLeft){
+            if(curLeft+5>=tar){
+                box.style.left = tar+'px';
+                return;
+            }
+            curLeft+=5;
+            box.style.left = curLeft+'px';
+        }
+        if(tar<curLeft){
+            if(curLeft-5<=tar){
+                box.style.left = tar+'px';
+                return;
+            }
+            curLeft-=5;
+            box.style.left = curLeft+'px';
+        }else{
+            //return;
+        }
+        timer = window.setTimeout(function () {
+            move(tar);
+        },10);
+    }
+    btns[0].onclick = function () {
+       move(tarLeft);
+    }
+    btns[1].onclick = function () {
+        move(tarRight);
+    }
+
+    //如果使用setTimeout实现轮循动画，在每一次设置的定时器中执行当前方法，方法不需要传递参数还好，如果一旦需要传递参数，我们只能用一个匿名函数把当前方法包起来，这样写的话虽然可以实现，但是会导致作用域的层级嵌套，形成很多不销毁的私有作用域
+
+    //把定时器的返回值设置为当前元素的自定义属性，这样的话，每一次执行其他动画的时候，都是先清除自定义属性存储的值
+    //(相当于把之前正在运行的动画都停止掉)
+</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>基础动画</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #box{
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript">
+    //1.限定步长，但是运动的总时间不限定 的匀速动画
+    var box = document.getElementById('box');
+    var target = utils.win('clientWidth')-box.offsetWidth;
+//    var step=10;
+//    var timer=window.setInterval(function () {
+//        var curLeft = utils.getCss(box,"left");
+//        //在做边界判断
+//        if(curLeft+step>=target){
+//            box.style.left = target+"px";
+//            window.clearInterval(timer);
+//            return;
+//        }
+//        curLeft+=step;
+//        box.style.left = curLeft+"px";
+//
+//    },10)
+//    var timer=  null;
+//    function move(){
+//        window.clearTimeout(timer);//每次进来之前先清除掉执行move方法产生的定时器
+//        var curLeft = utils.getCss(box,"left");
+//        if(curLeft+step>=target){//首先让当前的位置+步长和目标值进行比较，如果加上步长的结果大于等于目标值了，我们直接让元素运动到目标的位置即可
+//            box.style.left = target+"px";
+//            return;
+//        }
+//        curLeft+=step;
+//        box.style.left = curLeft+"px";
+//        console.log(1);
+//        //使用递归思想，让setTimeout和setInterval一样实现轮循定时的效果
+//        timer=window.setTimeout(arguments.callee,10);//在use strict严格模式下是禁止我们使用arguments下的call和callee这两个属性的
+//    }
+//    move();
+    //动画优化的四条黄金法则
+    //1.关于边界的判断问题 例如：
+    //我的总运动距离是1266px，起始的位置是0px，目标位置是1266px，我们限定了每一次运动的步长是5px，这样的话导致一个问题，当我走了253步的时候，当前元素在1265px的位置,还没有到达边界，但是如果我在多走一步的话(也就是254步)，最后的位置处于1270px的位置->不走还少，走了还多，这样的话是走还是不走呢？
+
+    //解决办法：每一次在做边界判断的时候，我们首先让当前的位置+步长和目标值进行比较，如果加上步长的结果大于等于目标值了，我们直接让元素运动到目标的位置即可
+
+    //2.限定总时间的匀速运动动画
+    var duration = 1000;//总时间
+    var interval =10;
+    //1)第一种思想：求出步长
+    //2)第二种思想：我们可以设定一套匀速公式
+    var effect = {
+        //匀速
+        linear: function (t,b,c,d) {
+            //t(timer):当前动画已经运动的总时间
+            //b(begin):当前元素的初始位置
+            //c(change):当前元素要运动的总距离(目标位置-起始位置b)
+            //d(duration):需要运动的总时间
+            return c*t/d+b;
+
+            //t/d  10/1000 ->我们走的时间在总时间中占的比例 ->我们走的距离已经占据了全程的百分比
+            //c*t/d 我们具体已经走了多远
+            //c*t/d+b 加上初始位置，表示当前走了多少的距离
+        }
+    }
+</script>
+</body>
+</html>

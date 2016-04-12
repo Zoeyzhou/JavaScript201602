@@ -43,10 +43,10 @@
     <div id="wrap">
         <div id="conBegin">
             <span>通知:</span>我们是先学习再考试,考试通过了才交学费;珠峰有完善的教学管理,考试和激励引导制度帮你不但学的会还要学的好!就业是我们的强项，平均就业工资超过12K。不但让你找到工作，还要能胜任工作。郑重承诺:工资低于9K退学费。
-        </div>
-        <div id="conEnd">
-            <span>通知:</span>我们是先学习再考试,考试通过了才交学费;珠峰有完善的教学管理,考试和激励引导制度帮你不但学的会还要学的好!就业是我们的强项，平均就业工资超过12K。不但让你找到工作，还要能胜任工作。郑重承诺:工资低于9K退学费。
-        </div>
+        </div><div id="conEnd">
+        <span>通知:</span>我们是先学习再考试,考试通过了才交学费;珠峰有完善的教学管理,考试和激励引导制度帮你不但学的会还要学的好!就业是我们的强项，平均就业工资超过12K。不但让你找到工作，还要能胜任工作。郑重承诺:工资低于9K退学费。
+    </div>
+
     </div>
 </div>
 
@@ -56,9 +56,10 @@
         var wrap = document.getElementById("wrap");
         var conBegin = document.getElementById("conBegin");
         var conBegin_width = getCss(conBegin, "width");
-
+        console.log(conBegin_width)
         function move() {
             wrap.scrollLeft++;
+            console.log(wrap.scrollLeft)
             if (wrap.scrollLeft >= conBegin_width) {
                 wrap.scrollLeft = 0;
             }
