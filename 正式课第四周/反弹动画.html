@@ -44,10 +44,12 @@
     var box = document.getElementById('box');
     var btns = document.getElementsByTagName('input');
     var tarLeft = 0, tarRight = utils.win("clientWidth") - box.offsetWidth;
-    var curLeft = utils.getCss(box,'left');
+
     var timer = null;
     function move(tar){
-        if(tar>curLeft){
+        window.clearTimeout(timer);
+        var curLeft = utils.getCss(box,'left');
+        if(tar>curLeft){//向右
             if(curLeft+5>=tar){
                 box.style.left = tar+'px';
                 return;
@@ -55,7 +57,7 @@
             curLeft+=5;
             box.style.left = curLeft+'px';
         }
-        if(tar<curLeft){
+        else if(tar<curLeft){//向左
             if(curLeft-5<=tar){
                 box.style.left = tar+'px';
                 return;
@@ -63,7 +65,7 @@
             curLeft-=5;
             box.style.left = curLeft+'px';
         }else{
-            //return;
+           return;
         }
         timer = window.setTimeout(function () {
             move(tar);
