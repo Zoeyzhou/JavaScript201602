@@ -45,43 +45,111 @@
     var btns = document.getElementsByTagName('input');
     var tarLeft = 0, tarRight = utils.win("clientWidth") - box.offsetWidth;
 
-    var timer = null;
-    function move(tar){
-        window.clearTimeout(timer);
-        var curLeft = utils.getCss(box,'left');
-        if(tar>curLeft){//向右
-            if(curLeft+5>=tar){
-                box.style.left = tar+'px';
-                return;
-            }
-            curLeft+=5;
-            box.style.left = curLeft+'px';
-        }
-        else if(tar<curLeft){//向左
-            if(curLeft-5<=tar){
-                box.style.left = tar+'px';
-                return;
-            }
-            curLeft-=5;
-            box.style.left = curLeft+'px';
-        }else{
-           return;
-        }
-        timer = window.setTimeout(function () {
-            move(tar);
-        },10);
-    }
-    btns[0].onclick = function () {
-       move(tarLeft);
-    }
-    btns[1].onclick = function () {
-        move(tarRight);
-    }
+    //var timer = null;
+    //    function move(tar){
+    //        window.clearTimeout(timer);
+    //        var curLeft = utils.getCss(box,'left');
+    //        if(tar>curLeft){//向右
+    //            if(curLeft+5>=tar){
+    //                box.style.left = tar+'px';
+    //                return;
+    //            }
+    //            curLeft+=5;
+    //            box.style.left = curLeft+'px';
+    //        }
+    //        else if(tar<curLeft){//向左
+    //            if(curLeft-5<=tar){
+    //                box.style.left = tar+'px';
+    //                return;
+    //            }
+    //            curLeft-=5;
+    //            box.style.left = curLeft+'px';
+    //        }else{
+    //           return;
+    //        }
+    //        timer = window.setTimeout(function () {
+    //            move(tar);
+    //        },10);
+    //    }
+    //    btns[0].onclick = function () {
+    //       move(tarLeft);
+    //    }
+    //    btns[1].onclick = function () {
+    //        move(tarRight);
+    //    }
 
     //如果使用setTimeout实现轮循动画，在每一次设置的定时器中执行当前方法，方法不需要传递参数还好，如果一旦需要传递参数，我们只能用一个匿名函数把当前方法包起来，这样写的话虽然可以实现，但是会导致作用域的层级嵌套，形成很多不销毁的私有作用域
 
     //把定时器的返回值设置为当前元素的自定义属性，这样的话，每一次执行其他动画的时候，都是先清除自定义属性存储的值
     //(相当于把之前正在运行的动画都停止掉)
+    //优化
+//    function move(tar) {
+//        _move();
+//        function _move() {
+//            window.clearTimeout(timer);
+//            var curLeft = utils.getCss(box, 'left');
+//            if (tar > curLeft) {//向右
+//                if (curLeft + 5 >= tar) {
+//                    box.style.left = tar + 'px';
+//                    return;
+//                }
+//                curLeft += 5;
+//                box.style.left = curLeft + 'px';
+//            }
+//            else if (tar < curLeft) {//向左
+//                if (curLeft - 5 <= tar) {
+//                    box.style.left = tar + 'px';
+//                    return;
+//                }
+//                curLeft -= 5;
+//                box.style.left = curLeft + 'px';
+//            } else {
+//                return;
+//            }
+//            timer = window.setTimeout(_move, 10);
+//        }
+//    }
+//    btns[0].onclick = function () {
+//        move(tarLeft);
+//    }
+//    btns[1].onclick = function () {
+//        move(tarRight);
+//    }
+    //优化2
+    //为了让当前元素在同一个时间只运行一个动画（下一个动画开始的时候首先把上一个动画的定时器清除掉）；保证当前元素所有动画接收定时器返回值的那个变量需要共享（把这个值放在当前元素的自定义属性上）
+    function move(tar) {
+        //var timer = null;如果这个是私有变量 会影响左右的动画 但是放在全局下会受到影响
+        _move();
+        function _move() {
+            window.clearTimeout(box.timer);
+            var curLeft = utils.getCss(box, 'left');
+            if (tar > curLeft) {//向右
+                if (curLeft + 5 >= tar) {
+                    box.style.left = tar + 'px';
+                    return;
+                }
+                curLeft += 5;
+                box.style.left = curLeft + 'px';
+            }
+            else if (tar < curLeft) {//向左
+                if (curLeft - 5 <= tar) {
+                    box.style.left = tar + 'px';
+                    return;
+                }
+                curLeft -= 5;
+                box.style.left = curLeft + 'px';
+            } else {
+                return;
+            }
+            box.timer = window.setTimeout(_move, 10);
+        }
+    }
+    btns[0].onclick = function () {
+        move(tarLeft);
+    }
+    btns[1].onclick = function () {
+        move(tarRight);
+    }
 </script>
 </body>
 </html>
