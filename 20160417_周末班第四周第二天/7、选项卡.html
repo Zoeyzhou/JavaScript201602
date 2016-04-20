@@ -113,8 +113,8 @@
         });
     }
 
-    jQuery.fn.extend({
-        tabChange: tabChange
+    jQuery.fn.extend({//向jQuery原型上扩展(把它当做一个类)，可以编写一些基于jQuery插件，例如这个就是一个简单的选项卡插件
+        tabChange: tabChange;
     });
 
     $(".box").tabChange();
