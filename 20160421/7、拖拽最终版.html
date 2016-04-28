@@ -101,6 +101,7 @@
             callBack.apply(context, outerArg.concat(innerArg));
         }
     }
+    bind(move,this);//move方法里的this是document，将它里面的this预处理为box
 </script>
 </body>
 </html>
