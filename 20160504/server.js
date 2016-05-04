@@ -49,4 +49,4 @@ var server = http.createServer(function (request, response) {
         response.end(JSON.stringify(res));//->我们返回给客户端的数据内容需要是一个JSON格式的字符串才可以
     }
 });
-server.listen(80);
+server.listen();
