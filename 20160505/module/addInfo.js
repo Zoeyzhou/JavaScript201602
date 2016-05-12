@@ -8,11 +8,9 @@ function init(query, res) {
             obj[key] = query[key];
         }
     }
-
     //->首先把之前的内容获取到
     var data = fs.readFileSync("./json/customerInfo.json", "utf8");
     data = JSON.parse(data);
-
     //->给要增加的结构内容中创建ID:原来记录最后一条信息的ID加上1就是当前我们需要的ID
     if (data.length === 0) {
         obj.id = 1;
