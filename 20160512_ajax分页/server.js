@@ -40,6 +40,8 @@ var server = http.createServer(function (request, response) {
         return;
     }
 
+
+
     //->如果客户端请求的地址不存在的话,我们返回一个404页面
     response.writeHead(404, {'content-type': 'text/html'});
     response.end(fs.readFileSync("./404.html", "utf8"));

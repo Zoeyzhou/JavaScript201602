@@ -13,7 +13,6 @@ function ajax(url, callback) {
 var pageNum = 1, pageCount = 10, total = 0;
 var pageList = document.getElementById("pageList"), pageTip = document.getElementById("pageTip"), tipList = pageTip.getElementsByTagName("li"), conList = pageList.getElementsByTagName("li");
 var userNum = document.getElementById("userNum");
-
 //->绑定数据
 bindHTML(true);
 function bindHTML(isFir) {
@@ -39,6 +38,7 @@ function bindHTML(isFir) {
         //->给每个LI绑定点击事件跳转到详细页
         for (var k = 0; k < conList.length; k++) {
             conList[k].index = k;
+            console.log(conList[k]);
             conList[k].onclick = function () {
                 window.location.href = "detail.html?num=" + this.getAttribute("num");
             }
@@ -58,8 +58,9 @@ function bindHTML(isFir) {
     });
 
     //->让当前页对应的页码有选中的样式
-    for (var i = 0, len = tipList.length; i < len; i++) {
+       for (var i = 0, len = tipList.length; i < len; i++) {
         tipList[i].className = (i + 1) == pageNum ? "bg" : null;
+
     }
 
     //->让文本框中的内容跟着变化
