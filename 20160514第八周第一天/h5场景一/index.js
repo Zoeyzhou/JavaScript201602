@@ -55,17 +55,17 @@ function move(e) {
     })//除了自己其他的li全部隐藏
     if (movePos > 0) {/*下滑*/
         this.prevsIndex = index == oLis.length - 1 ? 0 : index + 1;
-        var duration = -winH + movePos;//winH是自己随便设置的,可以写480都行
+        var duration = -900 + movePos;//winH是自己随便设置的,可以写480都行
     } else if (movePos < 0) {/*上滑*/
         this.prevsIndex = index == 0 ? oLis.length - 1 : index - 1;
-        var duration = winH + movePos;
+        var duration = 900 + movePos;
     }
     oLis[this.prevsIndex].style.display  ="block";
     oLis[this.prevsIndex].className = "zIndex";
     oLis[this.prevsIndex].style.webkitTransform = "translate(0," + duration + "px)";
     //处理当前这一张
     //缩放的倍数 = 1- 移动的距离/设备的高度
-    oLis[index].style.webkitTransform = "scale("+(1-Math.abs(movePos)/winH*1/2)+") translate(0,"+movePos+"px)";
+    oLis[index].style.webkitTransform = "scale("+(1-Math.abs(movePos)/winH*0.5)+") translate(0,"+movePos+"px)";
 
 }
 function end(e) {
