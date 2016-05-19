@@ -203,8 +203,8 @@ html,body{
     top:50%;
     margin-left: -265px;
     margin-top:-265px;
-    transform-style: preserve-3d;/*它的子元素在3D空间里展示*/
-    -webkit-transform-style: preserve-3d;/*它的子元素在3D空间里展示*/
+    transform-style: preserve-3d;/*锟斤拷锟斤拷锟斤拷元锟斤拷锟斤拷3D锟秸硷拷锟斤拷展示*/
+    -webkit-transform-style: preserve-3d;/*锟斤拷锟斤拷锟斤拷元锟斤拷锟斤拷3D锟秸硷拷锟斤拷展示*/
     transform: scale(0.2) rotateX(45deg) rotateY(45deg);
     -webkit-transform: scale(0.2) rotateX(45deg) rotateY(45deg);
     transform-origin: 255px 255px -255px;
@@ -262,13 +262,13 @@ html,body{
 }
 
 /*
-2D变形方法
+2D锟斤拷锟轿凤拷锟斤拷
 transform:rotate(45deg)
 transform:skew(15deg,15deg)
 transform:scale(0.5)
 transform:translate(100px,200px)
 transform-origin:top
-3D变形方法
+3D锟斤拷锟轿凤拷锟斤拷
 transform:rotateX(45deg);
 transform:rotateY(45deg);
 transform:translateZ(100px)
